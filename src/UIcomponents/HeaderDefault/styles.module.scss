@@ -1,0 +1,64 @@
+@import "assets/scss/common/mixins";
+
+.header {
+  z-index: 5;
+  background-color: var(--white);
+  box-shadow: 0 4px 54px rgba(0, 0, 0, 0.08);
+}
+
+.container {
+  @include getSize(max-width, 1440);
+  @include getSize(padding-left, 60);
+  @include getSize(padding-right, 60);
+
+  margin: 0 auto;
+}
+
+.headerContent {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  box-sizing: border-box;
+  height: 70px;
+
+  @include getSize(max-width, 1160);
+
+  margin: 0 auto;
+}
+
+.headerContentDashboard {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  box-sizing: border-box;
+
+  @include getSize(max-width, 1160);
+
+  height: 50px;
+  margin: 0 auto;
+}
+
+.headerLogo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  a {
+    display: flex;
+  }
+
+  @include getSize(margin-right, 75);
+}
+
+.headerButtons {
+  display: flex;
+  justify-content: center;
+  margin-right: -15px;
+  margin-left: auto;
+}
+
+.headerLeftButtons {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}

@@ -1,0 +1,17 @@
+$block: '.btn';
+
+#{$block} {
+  &:hover,
+  &:focus,
+  &:active,
+  &:active:focus {
+    outline: none;
+    box-shadow: none;
+  }
+
+  &#{$block} {
+    &__primary {
+      background: red;
+    }
+  }
+}
