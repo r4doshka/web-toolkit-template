@@ -1,5 +1,4 @@
-// import * as services from './services';
-import * as api from 'api/index';
+import { api } from 'api/index';
 
 import actions from './actions';
 import reducers from './reducers';

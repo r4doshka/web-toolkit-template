@@ -3,9 +3,8 @@ import { CustomerSigninBodyDto } from 'api/generated';
 import { signInAsync } from 'features/auth/thunks';
 import { AuthLayout } from 'layouts';
 import { FC, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { Redirect, useLocation } from 'react-router-dom';
-import { AppDispatch } from 'store/types';
+import { useAppDispatch } from 'store/reducers';
 
 interface LocationState {
   from: {
@@ -19,7 +18,7 @@ export const SignIn: TSignIn = () => {
   const location = useLocation<LocationState>();
   const from = location?.state?.from || { from: { pathname: '/dashboard' } };
   const [redirectToReferrer, setRedirectToReferrer] = useState(false);
-  const dispatch: AppDispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   if (redirectToReferrer) {
     return <Redirect to={from} />;
@@ -39,7 +38,7 @@ export const SignIn: TSignIn = () => {
 
   return (
     <AuthLayout>
-      <button onClick={() => handleSubmit({ email: 'test@gmail.com', password: 'testtest1' })}>sign in</button>
+      <button onClick={() => handleSubmit({ email: 'test@gmail.com', password: 'testtest' })}>sign in</button>
     </AuthLayout>
   );
 };

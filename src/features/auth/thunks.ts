@@ -9,12 +9,12 @@ export const signInAsync = createAsyncThunk<
   AuthCustomerDto,
   CustomerSigninBodyDto,
   {
-    extra: Services;
+    extra: { api: Services };
     rejectValue: SignInValidationErrors;
   }
->('auth/signIn', async (userData: CustomerSigninBodyDto, { extra, rejectWithValue }) => {
+>('auth/signIn', async (userData: CustomerSigninBodyDto, { extra: { api }, rejectWithValue }) => {
   try {
-    const { data } = await extra.api.AuthApi.customersControllerSignIn(userData);
+    const { data } = await api.AuthApi.customersControllerSignIn(userData);
     return data;
   } catch (err) {
     const error: AxiosError<SignInValidationErrors> = err;
@@ -29,12 +29,12 @@ export const signUpAsync = createAsyncThunk<
   AuthCustomerDto,
   CustomerSigninBodyDto,
   {
-    extra: Services;
+    extra: { api: Services };
     rejectValue: SignInValidationErrors;
   }
->('auth/signUp', async (userData: SignUpPayload, { extra, rejectWithValue }) => {
+>('auth/signUp', async (userData: SignUpPayload, { extra: { api }, rejectWithValue }) => {
   try {
-    const { data } = await extra.api.AuthApi.customersControllerSignUp(userData);
+    const { data } = await api.AuthApi.customersControllerSignUp(userData);
     return data;
   } catch (err) {
     const error: AxiosError<SignInValidationErrors> = err;
