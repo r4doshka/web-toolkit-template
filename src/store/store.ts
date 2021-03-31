@@ -13,10 +13,10 @@ const store = configureStore({
       thunk: {
         extraArgument: { api },
       },
+      devTools: process.env.NODE_ENV !== 'production',
       serializableCheck: false,
-    })
-      .concat(logger)
-      .concat(authMiddleware);
+      logger,
+    }).concat(authMiddleware);
   },
 });
 

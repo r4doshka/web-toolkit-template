@@ -7,12 +7,7 @@ export class Http {
     this.useInterceptors();
   }
 
-  setLanguageHeader(lang: string): void {
-    this.axios.defaults.headers['x-lang'] = lang;
-  }
-
   setAuthorizationHeader(token: string): void {
-    console.log('setAuthorizationHeader', token);
     this.axios.defaults.headers.Authorization = `Bearer ${token}`;
   }
 
@@ -33,6 +28,8 @@ export class Http {
       },
     );
   }
+
+  /* eslint-disable */
 
   get get() {
     return this.axios.get;
