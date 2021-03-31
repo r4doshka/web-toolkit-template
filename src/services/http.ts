@@ -1,25 +1,23 @@
-import Axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
+import Axios, { AxiosError, AxiosInstance } from 'axios';
 import { store } from 'store';
 import actions from 'store/actions';
 
 export class Http {
-  constructor(private readonly axios: AxiosInstance) {
+  constructor(private readonly _axios: AxiosInstance) {
     this.useInterceptors();
   }
 
   setAuthorizationHeader(token: string): void {
-    this.axios.defaults.headers.Authorization = `Bearer ${token}`;
+    this._axios.defaults.headers.Authorization = `Bearer ${token}`;
   }
 
   unsetAuthorizationHeader(): void {
-    delete this.axios.defaults.headers.Authorization;
+    delete this._axios.defaults.headers.Authorization;
   }
 
   private useInterceptors(): void {
-    this.axios.interceptors.response.use(
-      (response: AxiosResponse): AxiosResponse => {
-        return response.data;
-      },
+    this._axios.interceptors.response.use(
+      undefined,
       (error: AxiosError): Promise<AxiosError> => {
         if (error.response?.status === 401) {
           store.dispatch(actions.authActions.signOut());
@@ -32,28 +30,32 @@ export class Http {
   /* eslint-disable */
 
   get get() {
-    return this.axios.get;
+    return this._axios.get;
   }
 
-  post<T, R>(path: string, payload: T): Promise<R> {
-    return this.axios.post(path, payload);
+  get post() {
+    return this._axios.post;
   }
 
   get put() {
-    return this.axios.put;
+    return this._axios.put;
   }
 
   get patch() {
-    return this.axios.patch;
+    return this._axios.patch;
   }
 
   get delete() {
-    return this.axios.delete;
+    return this._axios.delete;
+  }
+
+  get axios(): AxiosInstance {
+    return this._axios;
   }
 }
 
 export const http = new Http(
   Axios.create({
-    baseURL: process.env.REACT_APP_API_URL,
+    baseURL: process.env.REACT_APP_API_URL
   }),
 );

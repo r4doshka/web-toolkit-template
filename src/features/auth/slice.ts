@@ -21,20 +21,22 @@ const authSlice = createSlice({
     signOut: () => initialState,
   },
   extraReducers: {
-    [signInAsync.pending.type]: (state, action) => {
+    [signInAsync.pending.type]: (state, { meta }) => {
       if (state.loading === 'idle') {
         state.loading = 'pending';
-        state.currentRequestId = action.meta.requestId;
+        state.currentRequestId = meta.requestId;
       }
     },
-    [signInAsync.fulfilled.type]: (state, action) => {
+    [signInAsync.fulfilled.type]: (state, { payload }) => {
       state.loading = 'idle';
       state.currentRequestId = undefined;
-      state.token = action.payload.token;
-      state.email = action.payload.user.email;
+      state.token = payload.token;
+      state.email = payload.user.email;
     },
     [signInAsync.rejected.type]: (state, { payload }) => {
       state.loading = 'idle';
+      console.log('state', state);
+      console.log('payload', payload);
       if (payload) {
         state.error = { message: payload.message, statusCode: payload.statusCode };
       } else {
@@ -42,17 +44,17 @@ const authSlice = createSlice({
       }
     },
 
-    [signUpAsync.pending.type]: (state, action) => {
+    [signUpAsync.pending.type]: (state, { meta }) => {
       if (state.loading === 'idle') {
         state.loading = 'pending';
-        state.currentRequestId = action.meta.requestId;
+        state.currentRequestId = meta.requestId;
       }
     },
-    [signUpAsync.fulfilled.type]: (state, action) => {
+    [signUpAsync.fulfilled.type]: (state, { payload }) => {
       state.loading = 'idle';
       state.currentRequestId = undefined;
-      state.token = action.payload.token;
-      state.email = action.payload.user.email;
+      state.token = payload.token;
+      state.email = payload.user.email;
     },
     [signUpAsync.rejected.type]: (state, { payload }) => {
       state.loading = 'idle';

@@ -31,7 +31,11 @@
     "lint": "eslint --fix .",
     "format": "prettier --write './**/*.{js,jsx,ts,tsx,md,json}' --config ./.prettierrc",
     "stylelint": "stylelint '**/*{.css,.scss}'",
-    "stylelint:fix": "stylelint '**/*{.css,.scss}' --fix"
+    "stylelint:fix": "stylelint '**/*{.css,.scss}' --fix",
+    "openapi:download": "curl \"http://localhost:5000/api-json\" -o ./src/api/openapi.json",
+    "openapi:generate": "openapi-generator-cli generate -i ./src/api/openapi.json -g typescript-axios --skip-validate-spec --enable-post-process-file -o ./src/api/generated",
+    "openapi": "yarn openapi:download && yarn openapi:generate",
+    "svg:transform": "./node_modules/@svgr/cli/bin/svgr --ignore-existing --typescript -d src/assets/svg src/assets/svg"
   },
   "eslintConfig": {
     "extends": [
@@ -52,6 +56,8 @@
     ]
   },
   "devDependencies": {
+    "@openapitools/openapi-generator-cli": "^2.2.4",
+    "@svgr/cli": "^5.5.0",
     "@types/react-redux": "^7.1.16",
     "@types/react-router-dom": "^5.1.7",
     "@types/redux-logger": "^3.0.8",

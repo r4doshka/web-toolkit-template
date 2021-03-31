@@ -1,4 +1,5 @@
 import { unwrapResult } from '@reduxjs/toolkit';
+import { CustomerSigninBodyDto } from 'api/generated';
 import { signInAsync } from 'features/auth/thunks';
 import { AuthLayout } from 'layouts';
 import { FC, useState } from 'react';
@@ -10,11 +11,6 @@ interface LocationState {
   from: {
     pathname: string;
   };
-}
-
-interface ISubmitProps {
-  email: string;
-  password: string;
 }
 
 type TSignIn = FC<Record<string, unknown>>;
@@ -29,20 +25,21 @@ export const SignIn: TSignIn = () => {
     return <Redirect to={from} />;
   }
 
-  const handleSubmit = async (data: ISubmitProps) => {
+  const handleSubmit = async (data: CustomerSigninBodyDto) => {
     try {
       const resultAction = await dispatch(signInAsync(data));
+      console.log('resultAction', resultAction);
       const unwrap = unwrapResult(resultAction);
       setRedirectToReferrer(true);
       console.log('unwrap', unwrap);
     } catch (error) {
-      console.log('resultAction error', error);
+      console.log('handleSubmit error', error);
     }
   };
 
   return (
     <AuthLayout>
-      <button onClick={() => handleSubmit({ email: 'test@gmail.com', password: '1234' })}>sign in</button>
+      <button onClick={() => handleSubmit({ email: 'test@gmail.com', password: 'testtest1' })}>sign in</button>
     </AuthLayout>
   );
 };

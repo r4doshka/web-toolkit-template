@@ -1,19 +1,21 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { AuthCustomerDto, CustomerSigninBodyDto } from 'api/generated';
 import { AxiosError } from 'axios';
 import { Services } from 'store/types';
 
-import { ResponsePayload, SignInPayload, SignInValidationErrors, SignUpPayload } from './types';
+import { SignInValidationErrors, SignUpPayload } from './types';
 
 export const signInAsync = createAsyncThunk<
-  ResponsePayload,
-  SignInPayload,
+  AuthCustomerDto,
+  CustomerSigninBodyDto,
   {
     extra: Services;
     rejectValue: SignInValidationErrors;
   }
->('auth/signIn', async (userData: SignInPayload, { extra, rejectWithValue }) => {
+>('auth/signIn', async (userData: CustomerSigninBodyDto, { extra, rejectWithValue }) => {
   try {
-    return await extra.api.auth.signIn(userData);
+    const { data } = await extra.api.AuthApi.customersControllerSignIn(userData);
+    return data;
   } catch (err) {
     const error: AxiosError<SignInValidationErrors> = err;
     if (!error.response) {
@@ -24,15 +26,16 @@ export const signInAsync = createAsyncThunk<
 });
 
 export const signUpAsync = createAsyncThunk<
-  ResponsePayload,
-  SignUpPayload,
+  AuthCustomerDto,
+  CustomerSigninBodyDto,
   {
     extra: Services;
     rejectValue: SignInValidationErrors;
   }
 >('auth/signUp', async (userData: SignUpPayload, { extra, rejectWithValue }) => {
   try {
-    return await extra.api.auth.signUp(userData);
+    const { data } = await extra.api.AuthApi.customersControllerSignUp(userData);
+    return data;
   } catch (err) {
     const error: AxiosError<SignInValidationErrors> = err;
     if (!error.response) {
