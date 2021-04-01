@@ -11,3 +11,8 @@ export type RootAction = typeof actions;
 export type AppDispatch = typeof store.dispatch;
 
 export type Services = typeof api;
+
+export type ExtraParamsThunkType<T> = {
+  extra: { api: Services };
+  rejectValue: T;
+};

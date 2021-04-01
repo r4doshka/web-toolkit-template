@@ -1,17 +1,14 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AuthCustomerDto, CustomerSigninBodyDto } from 'api/generated';
 import { AxiosError } from 'axios';
-import { Services } from 'store/types';
+import { ExtraParamsThunkType } from 'store/types';
 
 import { SignInValidationErrors, SignUpPayload } from './types';
 
 export const signInAsync = createAsyncThunk<
   AuthCustomerDto,
   CustomerSigninBodyDto,
-  {
-    extra: { api: Services };
-    rejectValue: SignInValidationErrors;
-  }
+  ExtraParamsThunkType<SignInValidationErrors>
 >('auth/signIn', async (userData: CustomerSigninBodyDto, { extra: { api }, rejectWithValue }) => {
   try {
     const { data } = await api.AuthApi.customersControllerSignIn(userData);
@@ -28,10 +25,7 @@ export const signInAsync = createAsyncThunk<
 export const signUpAsync = createAsyncThunk<
   AuthCustomerDto,
   CustomerSigninBodyDto,
-  {
-    extra: { api: Services };
-    rejectValue: SignInValidationErrors;
-  }
+  ExtraParamsThunkType<SignInValidationErrors>
 >('auth/signUp', async (userData: SignUpPayload, { extra: { api }, rejectWithValue }) => {
   try {
     const { data } = await api.AuthApi.customersControllerSignUp(userData);
