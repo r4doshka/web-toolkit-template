@@ -4,3 +4,4 @@
 yarn format
 yarn stylelint:fix
 yarn lint
+yarn tsc

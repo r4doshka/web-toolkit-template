@@ -41,7 +41,7 @@ export const SignUp: TSignUp = () => {
   };
 
   return (
-    <AuthLayout hasBackground="test">
+    <AuthLayout>
       <button onClick={() => handleSubmit({ email: 'test@gmail.com', password: '1234' })}>sign up</button>
     </AuthLayout>
   );
