@@ -56,6 +56,6 @@ export class Http {
 
 export const http = new Http(
   Axios.create({
-    baseURL: process.env.REACT_APP_API_URL
+    baseURL: process.env.REACT_APP_API_URL,
   }),
 );
