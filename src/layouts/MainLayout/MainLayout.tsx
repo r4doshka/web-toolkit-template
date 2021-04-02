@@ -5,15 +5,13 @@ import styles from './MainLayout.module.scss';
 
 interface IProps {
   children: React.ReactNode;
-  renderBreadcrumbs?: React.ReactNode;
-  pageTitle?: string;
 }
 
-const MainLayout: React.FC<IProps> = ({ pageTitle, renderBreadcrumbs, children }) => {
+const MainLayout: React.FC<IProps> = ({ children }) => {
   return (
     <div className={styles.root}>
       <HeaderDefault />
-      main layout
+      {children}
       <FooterDefault />
     </div>
   );

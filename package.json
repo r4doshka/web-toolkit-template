@@ -35,7 +35,8 @@
     "openapi:download": "curl \"http://localhost:5000/api-json\" -o ./src/api/openapi.json",
     "openapi:generate": "openapi-generator-cli generate -i ./src/api/openapi.json -g typescript-axios --skip-validate-spec --enable-post-process-file -o ./src/api/generated",
     "openapi": "yarn openapi:download && yarn openapi:generate",
-    "svg:transform": "./node_modules/@svgr/cli/bin/svgr --ignore-existing --typescript -d src/assets/svg src/assets/svg"
+    "svg:transform": "./node_modules/@svgr/cli/bin/svgr --ignore-existing --typescript -d src/assets/svg src/assets/svg",
+    "prepare": "husky install"
   },
   "eslintConfig": {
     "extends": [
@@ -72,7 +73,6 @@
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "eslint-plugin-unused-imports": "^1.1.0",
     "husky": "^6.0.0",
-    "lint-staged": "^10.5.4",
     "prettier": "^2.2.1",
     "prettier-stylelint": "^0.4.2",
     "stylelint": "^13.12.0",

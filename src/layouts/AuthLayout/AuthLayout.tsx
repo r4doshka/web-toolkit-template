@@ -5,7 +5,6 @@ import styles from './AuthLayout.module.scss';
 
 interface IProps {
   children: React.ReactNode;
-  hasBackground?: boolean;
 }
 
 const AuthLayout: React.FC<IProps> = ({ children }) => {
