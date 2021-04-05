@@ -1,8 +1,9 @@
 import { unwrapResult } from '@reduxjs/toolkit';
+import { selectToken } from 'features/auth/selectors';
 import { signUpAsync } from 'features/auth/thunks';
 import { AuthLayout } from 'layouts';
 import { FC, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useLocation } from 'react-router-dom';
 import { AppDispatch } from 'store/types';
 
@@ -20,10 +21,15 @@ interface ISubmitProps {
 type TSignUp = FC<Record<string, unknown>>;
 
 export const SignUp: TSignUp = () => {
+  const isAuth = useSelector(selectToken);
   const location = useLocation<LocationState>();
-  const from = location?.state?.from || { from: { pathname: '/dashboard' } };
+  const from = location?.state?.from || { pathname: '/dashboard' };
   const [redirectToReferrer, setRedirectToReferrer] = useState(false);
   const dispatch: AppDispatch = useDispatch();
+
+  if (isAuth && from.pathname === '/dashboard') {
+    return <Redirect to="/dashboard" />;
+  }
 
   if (redirectToReferrer) {
     return <Redirect to={from} />;
